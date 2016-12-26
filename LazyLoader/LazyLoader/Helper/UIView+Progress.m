@@ -15,6 +15,7 @@
 - (UIActivityIndicatorView*) showProgressView {
     UIActivityIndicatorView *progressView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     progressView.center = self.center;
+    progressView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [progressView startAnimating];
     [self addSubview:progressView];
     return progressView;

@@ -10,12 +10,19 @@
 #import "ContentManager.h"
 #import "UIView+Progress.h"
 #import "LazyCell.h"
+#import "OperationManager.h"
+#import "LazyDownloader.h"
 #import "Constants.h"
 
+#pragma mark- Private
 @interface ViewController (Private)
+
 -(void) fetchDataFromJSONFeed;
+-(void) loadLazily:(ImageElement*)imageElement atIndexPath:(NSIndexPath*)indexPath;
+
 @end
 
+#pragma mark- View Controller Implementation
 @implementation ViewController
 
 #pragma mark- View Lifecycle
@@ -27,6 +34,7 @@
     self.contentTableView.rowHeight = UITableViewAutomaticDimension;
     self.contentTableView.estimatedRowHeight = 350;
     
+    self.downloadManager = [[OperationManager alloc] init];
     [self fetchDataFromJSONFeed];
 }
 
@@ -63,6 +71,37 @@
     }];
 }
 
+-(void)loadLazily:(ImageElement *)imageElement atIndexPath:(NSIndexPath *)indexPath {
+    
+    //Leave images which are successful or failed
+    if(imageElement.downloadStatus != DownloadStatus_Default) {
+        NSLog(@"Download already in completed/failed for image with title: %@", imageElement.name);
+        return;
+    }
+    NSNumber *rowKey = [NSNumber numberWithInt:indexPath.row];
+    
+    NSObject *downloadOperation = [self.downloadManager.ongoingOperations objectForKey:rowKey];
+    if(downloadOperation != nil) {
+        NSLog(@"Download already in progress for image with title: %@", imageElement.name);
+        return;
+    }
+    
+    LazyDownloader *lazyDownloader = [[LazyDownloader alloc] initWithTarget:imageElement];
+    __weak LazyDownloader *weakLazyDownloader = lazyDownloader;     //use weak reference to operation to avoid retain cycle
+    [lazyDownloader setCompletionBlock:^{
+        if(weakLazyDownloader.isCancelled) {return;}
+        [self.downloadManager.ongoingOperations removeObjectForKey:rowKey];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"Reloading tableview");
+            [self.contentTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        });
+        
+    }];
+    
+    [self.downloadManager.ongoingOperations setObject:lazyDownloader forKey:rowKey];
+    [self.downloadManager.operationQueue addOperation:lazyDownloader];
+}
+
 
 #pragma mark- TableViewDataSource methods
 
@@ -77,10 +116,25 @@
         cell = [[LazyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"lazyCell"];
     }
     
+    // Update cell with available data
     ImageElement *imageElement = [self.feedContent.images objectAtIndex:indexPath.row];
     cell.imgView.image =imageElement.image;
     cell.nameLabel.text = imageElement.name;
     cell.descriptionLabel.text = imageElement.desc;
+    
+    // Load images lazily based on status
+    UIActivityIndicatorView *progressView = [cell.imgView showProgressView];
+    switch (imageElement.downloadStatus) {
+        case DownloadStatus_Default:
+            [self loadLazily:imageElement atIndexPath:indexPath];
+            break;
+        case DownloadStatus_Failed:
+            cell.imgView.image = [UIImage imageNamed:@"noImage"];
+        case DownloadStatus_Completed:
+            [cell.imgView hideProgressView:progressView];
+        default:
+            break;
+    }
     
     return cell;
 }

@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OperationManager.h"
 #import "Content.h"
 
 @interface ViewController : UIViewController <UITableViewDataSource>
 
-@property (weak, nonatomic) IBOutlet UITableView *contentTableView;
+@property (nullable, weak, nonatomic) IBOutlet UITableView *contentTableView;
 @property (nonnull, atomic, strong) Content *feedContent;
+@property (nonnull, atomic, strong) OperationManager *downloadManager;
 
 @end
 

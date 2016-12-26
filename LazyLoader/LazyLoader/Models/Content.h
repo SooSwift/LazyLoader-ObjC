@@ -31,9 +31,9 @@ enum DownloadStatus {
 // Content fetched from web having title and image collection
 @interface Content:NSObject
 
-@property (nonatomic, strong, nonnull) NSString *title;
-@property (nonatomic, strong, nonnull) NSArray *images;
+@property (nonnull, strong) NSString *title;
+@property (nonnull, strong) NSArray *images;
 
--(instancetype)initWithTitle:(NSString*)title images:(NSArray*)images;
+-(nonnull instancetype)initWithTitle:(nonnull NSString*)title images:(nonnull NSArray*)images;
 
 @end
