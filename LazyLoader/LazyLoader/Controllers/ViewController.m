@@ -83,7 +83,7 @@
         NSLog(@"Download already in completed/failed for image with title: %@", imageElement.name);
         return;
     }
-    NSNumber *rowKey = [NSNumber numberWithInt:indexPath.row];
+    NSNumber *rowKey = [NSNumber numberWithInteger:indexPath.row];
     
     NSObject *downloadOperation = [self.downloadManager.ongoingOperations objectForKey:rowKey];
     if(downloadOperation != nil) {
