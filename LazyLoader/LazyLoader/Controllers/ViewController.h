@@ -15,6 +15,7 @@
 @property (nullable, weak, nonatomic) IBOutlet UITableView *contentTableView;
 @property (nonnull, atomic, strong) Content *feedContent;
 @property (nonnull, atomic, strong) OperationManager *downloadManager;
+@property (nonnull, nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 

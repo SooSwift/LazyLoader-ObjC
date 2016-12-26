@@ -46,6 +46,7 @@
         return;
     }
     
+    if(self.isCancelled) {return;}
     UIImage *downloadedImage = [UIImage imageWithData:data];
     if(downloadedImage == nil) {
         NSLog(@"Failed to create image from data for title %@", self.downloadTarget.name);

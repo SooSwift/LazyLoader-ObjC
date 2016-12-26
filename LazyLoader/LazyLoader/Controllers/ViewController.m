@@ -30,7 +30,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    // Configure Refresh Control
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(onRefreshTableview) forControlEvents:UIControlEventValueChanged];
+    
     //Configure TableView
+    [self.contentTableView addSubview:self.refreshControl];
     self.contentTableView.rowHeight = UITableViewAutomaticDimension;
     self.contentTableView.estimatedRowHeight = 350;
     
@@ -91,6 +96,7 @@
     [lazyDownloader setCompletionBlock:^{
         if(weakLazyDownloader.isCancelled) {return;}
         [self.downloadManager.ongoingOperations removeObjectForKey:rowKey];
+        if(weakLazyDownloader.isCancelled) {return;}
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"Reloading tableview");
             [self.contentTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -102,6 +108,13 @@
     [self.downloadManager.operationQueue addOperation:lazyDownloader];
 }
 
+-(void)onRefreshTableview {
+    [self.refreshControl endRefreshing];
+    [self.downloadManager reset];
+    self.feedContent = [[Content alloc] initWithTitle:@"" images:[[NSArray alloc] init]];
+    [self.contentTableView reloadData];
+    [self fetchDataFromJSONFeed];
+}
 
 #pragma mark- TableViewDataSource methods
 
