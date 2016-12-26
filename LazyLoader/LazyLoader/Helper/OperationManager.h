@@ -14,5 +14,7 @@
 @property (nonnull, atomic, strong) NSMutableDictionary *ongoingOperations;
 
 -(void) reset;
+-(void) suspendAll;
+-(void) resumeAll;
 
 @end

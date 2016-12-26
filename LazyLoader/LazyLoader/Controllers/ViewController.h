@@ -10,7 +10,7 @@
 #import "OperationManager.h"
 #import "Content.h"
 
-@interface ViewController : UIViewController <UITableViewDataSource>
+@interface ViewController : UIViewController <UITableViewDataSource, UIScrollViewDelegate>
 
 @property (nullable, weak, nonatomic) IBOutlet UITableView *contentTableView;
 @property (nonnull, atomic, strong) Content *feedContent;

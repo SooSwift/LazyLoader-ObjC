@@ -118,6 +118,29 @@
     [self fetchDataFromJSONFeed];
 }
 
+- (void)updateDownloadsForVisibleRows {
+    NSMutableSet *ongoinDownloads = [NSMutableSet setWithArray:self.downloadManager.ongoingOperations.allKeys];
+    NSArray *visibleIndexPaths = [self.contentTableView indexPathsForVisibleRows];
+    
+    //Cancel operations whose cells are no more visible
+    NSMutableSet *cancelOperations = [NSMutableSet setWithSet:ongoinDownloads];
+    [cancelOperations minusSet:[NSSet setWithArray:visibleIndexPaths]];
+    for(NSIndexPath* toBeCancelledIndexPath in cancelOperations) {
+        LazyDownloader *downloadOperation = [self.downloadManager.ongoingOperations objectForKey:toBeCancelledIndexPath];
+        if(downloadOperation) {
+            [downloadOperation cancel];
+        }
+    }
+    
+    //Start new operatons which are not currently ongoing
+    NSMutableSet *newOperations = [NSMutableSet setWithArray:visibleIndexPaths];
+    [newOperations minusSet:ongoinDownloads];
+    for(NSIndexPath* toBeStartedIndexPath in newOperations) {
+        ImageElement *target = [self.feedContent.images objectAtIndex:toBeStartedIndexPath.row];
+        [self loadLazily:target atIndexPath:toBeStartedIndexPath];
+    }
+}
+
 #pragma mark- TableViewDataSource methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -138,10 +161,13 @@
     cell.descriptionLabel.text = imageElement.desc;
     
     // Load images lazily based on status
-    UIActivityIndicatorView *progressView = [cell.imgView showProgressView];
+    UIActivityIndicatorView *progressView = nil;
     switch (imageElement.downloadStatus) {
         case DownloadStatus_Default:
-            [self loadLazily:imageElement atIndexPath:indexPath];
+            if(!self.contentTableView.dragging || !self.contentTableView.decelerating) {
+                progressView = [cell.imgView showProgressView];
+                [self loadLazily:imageElement atIndexPath:indexPath];
+            }
             break;
         case DownloadStatus_Failed:
             cell.imgView.image = [UIImage imageNamed:@"noImage"];
@@ -152,6 +178,24 @@
     }
     [cell layoutIfNeeded];
     return cell;
+}
+
+#pragma mark - UIScrollView Delegate methods
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.downloadManager suspendAll];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self updateDownloadsForVisibleRows];
+    [self.downloadManager resumeAll];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if(decelerate) {
+        return;
+    }
+    [self updateDownloadsForVisibleRows];
+    [self.downloadManager resumeAll];
 }
 
 @end

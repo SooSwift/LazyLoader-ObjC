@@ -27,4 +27,12 @@
     [self.ongoingOperations removeAllObjects];
 }
 
+- (void) suspendAll {
+    self.operationQueue.suspended = true;
+}
+
+- (void) resumeAll {
+    self.operationQueue.suspended = false;
+}
+
 @end
