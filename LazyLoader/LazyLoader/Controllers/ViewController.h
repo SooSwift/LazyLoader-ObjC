@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Content.h"
 
 @interface ViewController : UIViewController
 
+@property (nonnull, atomic, strong) Content *feedContent;
 
 @end
 
