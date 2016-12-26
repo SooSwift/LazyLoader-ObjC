@@ -26,16 +26,19 @@
         if(httpResponse == nil || httpResponse.statusCode != 200) {
             NSLog(@"Unable to receive response from url : %@", urlString);
             completion(false, nil);
+            return;
         }
         
         if(error != nil) {
             NSLog(@"Received error while fetching JSON data from url : %@", urlString);
             completion(false, nil);
+            return;
         }
     
         if(data == nil) {
             NSLog(@"Failed to receive data from url : %@", urlString);
             completion(false, nil);
+            return;
         }
         
         //INFO: This json feed is encoded with ISOLatin1. Convert it to UTF-8 before serialization to be successful
@@ -43,11 +46,13 @@
         if(latinEncodedString == nil) {
             NSLog(@"Expecting ISOLatin1 encoded data but found otherwize");
             completion(false, nil);
+            return;
         }
         NSData *utf8Data = [latinEncodedString dataUsingEncoding:NSUTF8StringEncoding];
         if(utf8Data == nil) {
             NSLog(@"Expecting ISOLatin1 encoded data but found otherwize");
             completion(false, nil);
+            return;
         }
         
         //Parse JSON
@@ -56,12 +61,14 @@
         if(jsonDictionary == nil) {
             NSLog(@"Error parsing json received from URL %@: error : %@", urlString, parseError);
             completion(false, nil);
+            return;
         }
         
         Content *parsedContent = [self parseContentObjectFromJSON:jsonDictionary];
         if(parsedContent == nil) {
             NSLog(@"Failed to parse json data received from URL %@", urlString);
             completion(false, nil);
+            return;
         }
         
         completion(true, parsedContent);
