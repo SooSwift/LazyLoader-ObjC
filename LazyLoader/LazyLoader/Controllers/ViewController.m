@@ -38,6 +38,7 @@
     [self.contentTableView addSubview:self.refreshControl];
     self.contentTableView.rowHeight = UITableViewAutomaticDimension;
     self.contentTableView.estimatedRowHeight = 350;
+    self.contentTableView.tableFooterView = [[UIView alloc] init];
     
     self.downloadManager = [[OperationManager alloc] init];
     [self fetchDataFromJSONFeed];
