@@ -84,9 +84,10 @@
         NSLog(@"Download already in completed/failed for image with title: %@", imageElement.name);
         return;
     }
-    NSNumber *rowKey = [NSNumber numberWithInteger:indexPath.row];
+    NSIndexPath *indexPathKey = [NSIndexPath indexPathForRow:indexPath.row
+                                                   inSection:indexPath.section];
     
-    NSObject *downloadOperation = [self.downloadManager.ongoingOperations objectForKey:rowKey];
+    NSObject *downloadOperation = [self.downloadManager.ongoingOperations objectForKey:indexPathKey];
     if(downloadOperation != nil) {
         NSLog(@"Download already in progress for image with title: %@", imageElement.name);
         return;
@@ -96,7 +97,7 @@
     __weak LazyDownloader *weakLazyDownloader = lazyDownloader;     //use weak reference to operation to avoid retain cycle
     [lazyDownloader setCompletionBlock:^{
         if(weakLazyDownloader.isCancelled) {return;}
-        [self.downloadManager.ongoingOperations removeObjectForKey:rowKey];
+        [self.downloadManager.ongoingOperations removeObjectForKey:indexPathKey];
         if(weakLazyDownloader.isCancelled) {return;}
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"Reloading tableview");
@@ -105,7 +106,7 @@
         
     }];
     
-    [self.downloadManager.ongoingOperations setObject:lazyDownloader forKey:rowKey];
+    [self.downloadManager.ongoingOperations setObject:lazyDownloader forKey:indexPathKey];
     [self.downloadManager.operationQueue addOperation:lazyDownloader];
 }
 
@@ -149,7 +150,7 @@
         default:
             break;
     }
-    
+    [cell layoutIfNeeded];
     return cell;
 }
 
