@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Content.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UITableViewDataSource>
 
+@property (weak, nonatomic) IBOutlet UITableView *contentTableView;
 @property (nonnull, atomic, strong) Content *feedContent;
 
 @end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		03706E3A1E10F1EC001DB643 /* UIView+Progress.m in Sources */ = {isa = PBXBuildFile; fileRef = 03706E391E10F1EC001DB643 /* UIView+Progress.m */; };
+		03706E3D1E110C3F001DB643 /* LazyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03706E3C1E110C3F001DB643 /* LazyCell.m */; };
 		03BBD8781E0E7BB5004F64A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03BBD8771E0E7BB5004F64A0 /* main.m */; };
 		03BBD87B1E0E7BB5004F64A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 03BBD87A1E0E7BB5004F64A0 /* AppDelegate.m */; };
 		03BBD8811E0E7BB5004F64A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03BBD87F1E0E7BB5004F64A0 /* Main.storyboard */; };
@@ -21,6 +22,8 @@
 /* Begin PBXFileReference section */
 		03706E381E10F1C9001DB643 /* UIView+Progress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Progress.h"; sourceTree = "<group>"; };
 		03706E391E10F1EC001DB643 /* UIView+Progress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Progress.m"; sourceTree = "<group>"; };
+		03706E3B1E110C3F001DB643 /* LazyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LazyCell.h; sourceTree = "<group>"; };
+		03706E3C1E110C3F001DB643 /* LazyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LazyCell.m; sourceTree = "<group>"; };
 		03BBD8731E0E7BB5004F64A0 /* LazyLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LazyLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03BBD8771E0E7BB5004F64A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		03BBD8791E0E7BB5004F64A0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -124,6 +127,8 @@
 		03BBD8921E0E7C33004F64A0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				03706E3B1E110C3F001DB643 /* LazyCell.h */,
+				03706E3C1E110C3F001DB643 /* LazyCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03BBD8931E0E7C33004F64A0 /* ViewController.m in Sources */,
+				03706E3D1E110C3F001DB643 /* LazyCell.m in Sources */,
 				03706E3A1E10F1EC001DB643 /* UIView+Progress.m in Sources */,
 				03BBD8961E0E8BD1004F64A0 /* ContentManager.m in Sources */,
 				03BBD87B1E0E7BB5004F64A0 /* AppDelegate.m in Sources */,

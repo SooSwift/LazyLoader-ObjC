@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "ContentManager.h"
 #import "UIView+Progress.h"
+#import "LazyCell.h"
 #import "Constants.h"
 
 @interface ViewController (Private)
@@ -21,6 +22,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    //Configure TableView
+    self.contentTableView.rowHeight = UITableViewAutomaticDimension;
+    self.contentTableView.estimatedRowHeight = 350;
+    
     [self fetchDataFromJSONFeed];
 }
 
@@ -51,12 +57,32 @@
         self.feedContent = jsonContent;
         dispatch_async(dispatch_get_main_queue(), ^{
             self.title = self.feedContent.title;
+            [self.contentTableView reloadData];
         });
         
     }];
 }
 
 
+#pragma mark- TableViewDataSource methods
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.feedContent.images.count;
+}
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    LazyCell *cell = (LazyCell*)[tableView dequeueReusableCellWithIdentifier:@"lazyCell"];
+    
+    if(cell == nil) {
+        cell = [[LazyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"lazyCell"];
+    }
+    
+    ImageElement *imageElement = [self.feedContent.images objectAtIndex:indexPath.row];
+    cell.imgView.image =imageElement.image;
+    cell.nameLabel.text = imageElement.name;
+    cell.descriptionLabel.text = imageElement.desc;
+    
+    return cell;
+}
 
 @end

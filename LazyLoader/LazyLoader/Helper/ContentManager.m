@@ -85,13 +85,13 @@
     NSMutableArray *imageElements = [[NSMutableArray alloc] initWithCapacity:imageArray.count];
     for(NSDictionary* imageDictionary in imageArray) {
         NSString *imageName = (NSString*)[imageDictionary objectForKey:@"title"];
-        if(imageName == nil) { imageName = @"Unknown"; }
+        if(imageName == nil || [imageName isEqual:[NSNull null]]) { imageName = @"Unknown"; }
         
         NSString *imageDesc = (NSString*)[imageDictionary objectForKey:@"description"];
-        if(imageDesc == nil) { imageDesc = @""; }
+        if(imageDesc == nil || [imageDesc isEqual:[NSNull null]]) { imageDesc = @""; }
         
         NSString *imageHref = (NSString*)[imageDictionary objectForKey:@"imageHref"];
-        if(imageHref == nil) { imageHref = @""; }
+        if(imageHref == nil || [imageHref isEqual:[NSNull null]]) { imageHref = @""; }
         
         ImageElement *image = [[ImageElement alloc] initWithName:imageName Description:imageDesc ImageURL:imageHref];
         [imageElements addObject:image];
