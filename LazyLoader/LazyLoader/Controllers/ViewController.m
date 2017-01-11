@@ -176,7 +176,7 @@
         default:
             break;
     }
-    [cell layoutIfNeeded];
+    [cell layoutSubviews];
     return cell;
 }
 

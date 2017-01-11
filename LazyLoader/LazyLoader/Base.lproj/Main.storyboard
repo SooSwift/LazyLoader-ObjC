@@ -30,34 +30,22 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="200.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wou-pc-78a">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wou-pc-78a">
                                                     <rect key="frame" x="0.0" y="5" width="375" height="125"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FIX-Kp-nby">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FIX-Kp-nby">
                                                     <rect key="frame" x="10" y="140" width="355" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <color key="textColor" red="0.90588235294117647" green="0.31372549019607843" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="Pdf-ZU-b8e">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="Pdf-ZU-b8e">
                                                     <rect key="frame" x="10" y="171" width="355" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                     <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Pdf-ZU-b8e" firstAttribute="top" secondItem="FIX-Kp-nby" secondAttribute="bottom" constant="10" id="4JW-uO-yet"/>
-                                                <constraint firstItem="Pdf-ZU-b8e" firstAttribute="width" secondItem="FIX-Kp-nby" secondAttribute="width" id="6NH-Vd-Vpq"/>
-                                                <constraint firstItem="FIX-Kp-nby" firstAttribute="leading" secondItem="Bk5-Qy-4UT" secondAttribute="leading" constant="10" id="IM9-gg-kdX"/>
-                                                <constraint firstItem="Pdf-ZU-b8e" firstAttribute="leading" secondItem="FIX-Kp-nby" secondAttribute="leading" id="Tln-Ei-eCO"/>
-                                                <constraint firstItem="FIX-Kp-nby" firstAttribute="top" secondItem="Wou-pc-78a" secondAttribute="bottom" constant="10" id="Ttj-9J-c22"/>
-                                                <constraint firstItem="Wou-pc-78a" firstAttribute="leading" secondItem="Bk5-Qy-4UT" secondAttribute="leading" id="UtO-uc-rOu"/>
-                                                <constraint firstAttribute="trailing" secondItem="Wou-pc-78a" secondAttribute="trailing" id="a2i-7Z-7yC"/>
-                                                <constraint firstItem="Wou-pc-78a" firstAttribute="top" secondItem="Bk5-Qy-4UT" secondAttribute="top" constant="5" id="cbW-L1-IB6"/>
-                                                <constraint firstAttribute="trailing" secondItem="FIX-Kp-nby" secondAttribute="trailing" constant="10" id="oHT-Dp-zdW"/>
-                                                <constraint firstAttribute="bottom" secondItem="Pdf-ZU-b8e" secondAttribute="bottom" constant="10" id="s4N-jK-yZB"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
@@ -75,10 +63,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="jfL-Hj-goU" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ITb-Ig-J5p"/>
-                            <constraint firstAttribute="trailing" secondItem="jfL-Hj-goU" secondAttribute="trailing" id="RbE-M8-j99"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jfL-Hj-goU" secondAttribute="bottom" id="jEi-Nk-PTI"/>
-                            <constraint firstItem="jfL-Hj-goU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="vHI-ud-cjr"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jfL-Hj-goU" secondAttribute="bottom" id="VfB-Rn-fOT"/>
+                            <constraint firstAttribute="trailing" secondItem="jfL-Hj-goU" secondAttribute="trailing" id="bJa-Zy-WHE"/>
+                            <constraint firstItem="jfL-Hj-goU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ibi-re-CSa"/>
+                            <constraint firstItem="jfL-Hj-goU" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="src-cl-rF9"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="mz1-Li-LyR"/>
